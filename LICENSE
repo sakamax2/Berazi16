@@ -1,201 +1,463 @@
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomorrow | A Look Toward the Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: #0D1321;
+    --twilight: #1D2D50;
+    --dawn: #E8A33D;
+    --violet: #6B4E71;
+    --paper: #F4F1EA;
+    --line: rgba(244,241,234,0.14);
+    --max-w: 780px;
+  }
 
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
 
-   1. Definitions.
+  body{
+    margin:0;
+    background: var(--night);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0;
+  }
 
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
+  .wrap{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
 
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
+  a{ color: inherit; }
 
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
+  /* ---------- ambient starfield ---------- */
+  #stars{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star{
+    position: absolute;
+    background: var(--paper);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%, 100%{ opacity: 0.15; }
+    50%{ opacity: 0.75; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .star{ animation: none; opacity: 0.35; }
+  }
 
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
+  main{ position: relative; z-index: 1; }
 
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
+  /* ---------- hero ---------- */
+  .hero{
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 0 80px;
+    position: relative;
+  }
 
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
+  .hero .eyebrow{
+    color: var(--dawn);
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: rise 0.9s 0.1s ease-out forwards;
+  }
 
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
+  .hero h1{
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    color: var(--paper);
+    max-width: 16ch;
+    opacity: 0;
+    animation: rise 0.9s 0.3s ease-out forwards;
+  }
 
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
+  .hero p{
+    max-width: 58ch;
+    margin-top: 26px;
+    font-size: 1.15rem;
+    color: rgba(244,241,234,0.8);
+    opacity: 0;
+    animation: rise 0.9s 0.55s ease-out forwards;
+  }
 
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(16px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
 
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
+  .orbit-cue{
+    margin-top: 64px;
+    width: 220px;
+    height: 46px;
+    opacity: 0;
+    animation: rise 0.9s 0.8s ease-out forwards;
+  }
 
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
+  /* ---------- section shell ---------- */
+  section{
+    padding: 100px 0;
+    border-top: 1px solid var(--line);
+  }
 
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
+  .kicker{
+    font-size: 1rem;
+    color: var(--dawn);
+    margin-bottom: 14px;
+  }
 
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
+  section > .wrap > h2{
+    font-size: clamp(1.7rem, 3.8vw, 2.4rem);
+    max-width: 20ch;
+  }
 
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
+  .lede{
+    max-width: 62ch;
+    margin-top: 20px;
+    color: rgba(244,241,234,0.78);
+    font-size: 1.05rem;
+  }
 
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
+  /* ---------- pillars ---------- */
+  .pillars{
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .pillar{
+    background: var(--night);
+    padding: 36px 32px;
+  }
+  .pillar .glyph{
+    width: 34px;
+    height: 34px;
+    margin-bottom: 22px;
+  }
+  .pillar h3{
+    font-size: 1.25rem;
+    color: var(--paper);
+  }
+  .pillar p{
+    margin-top: 12px;
+    font-size: 0.98rem;
+    color: rgba(244,241,234,0.72);
+  }
 
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
+  @media (max-width: 640px){
+    .pillars{ grid-template-columns: 1fr; }
+  }
 
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
+  /* ---------- timeline ---------- */
+  .timeline-section{ background: var(--twilight); }
 
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
+  .timeline{
+    margin-top: 60px;
+    position: relative;
+    padding-left: 34px;
+  }
+  .timeline::before{
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item{
+    position: relative;
+    padding-bottom: 52px;
+  }
+  .tl-item:last-child{ padding-bottom: 0; }
+  .tl-item::before{
+    content: "";
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--twilight);
+    border: 2px solid var(--dawn);
+  }
+  .tl-year{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--dawn);
+    font-size: 1.5rem;
+  }
+  .tl-item p{
+    margin-top: 10px;
+    color: rgba(244,241,234,0.82);
+    max-width: 56ch;
+  }
 
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
+  /* ---------- manifesto ---------- */
+  .manifesto{
+    text-align: center;
+  }
+  .manifesto blockquote{
+    margin: 0 auto;
+    max-width: 42ch;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.4rem, 3.4vw, 2rem);
+    line-height: 1.6;
+    color: var(--paper);
+  }
+  .manifesto cite{
+    display: block;
+    margin-top: 24px;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: rgba(244,241,234,0.6);
+  }
 
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
+  /* ---------- closing ---------- */
+  .closing{
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .closing h2{
+    max-width: none;
+    margin: 0 auto;
+  }
+  .closing .lede{ margin-inline: auto; }
 
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
+  .cta-row{
+    margin-top: 40px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-input{
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--paper);
+    padding: 14px 20px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    min-width: 260px;
+  }
+  .cta-input::placeholder{ color: rgba(244,241,234,0.45); }
+  .cta-input:focus{
+    outline: none;
+    border-color: var(--dawn);
+  }
+  .cta-btn{
+    background: var(--dawn);
+    color: var(--night);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .cta-btn:hover{ transform: translateY(-2px); }
+  .cta-btn:focus-visible, .cta-input:focus-visible{
+    outline: 2px solid var(--dawn);
+    outline-offset: 2px;
+  }
 
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
+  .cta-note{
+    margin-top: 18px;
+    font-size: 0.85rem;
+    color: rgba(244,241,234,0.45);
+  }
 
-   END OF TERMS AND CONDITIONS
+  footer{
+    text-align: center;
+    padding: 40px 0 60px;
+    font-size: 0.85rem;
+    color: rgba(244,241,234,0.4);
+  }
+</style>
+</head>
+<body>
 
-   APPENDIX: How to apply the Apache License to your work.
+<div id="stars"></div>
 
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
+<main>
 
-   Copyright [yyyy] [name of copyright owner]
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">A quiet look ahead</div>
+      <h1>The future isn't a place we arrive at. It's a habit we build today.</h1>
+      <p>Every small decision, every idea tested, every question asked in a lab or a bedroom — these are the raw materials of a world not yet built. This page is about that world, and the hands shaping it right now.</p>
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+      <svg class="orbit-cue" viewBox="0 0 220 46" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+        <path d="M4 23 H180" stroke="var(--line)" stroke-width="1"/>
+        <circle id="orbit-dot" cx="4" cy="23" r="4" fill="var(--dawn)"/>
+        <path d="M170 15 L184 23 L170 31" stroke="rgba(244,241,234,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
 
-       http://www.apache.org/licenses/LICENSE-2.0
+  <section id="pillars">
+    <div class="wrap">
+      <div class="kicker">Emerging shapes</div>
+      <h2>Four shifts likely to redraw daily life</h2>
+      <p class="lede">No one has a crystal ball, but a few transformations are already clear enough to sketch in broad strokes.</p>
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+      <div class="pillars">
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="17" cy="17" r="6" stroke="var(--dawn)" stroke-width="1.4"/>
+            <path d="M17 2v6M17 26v6M2 17h6M26 17h6M6.5 6.5l4.2 4.2M23.3 23.3l4.2 4.2M27.5 6.5l-4.2 4.2M10.7 23.3l-4.2 4.2" stroke="var(--dawn)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <h3>Intelligence that thinks alongside us</h3>
+          <p>Tools that understand context and propose, rather than dictate — turning our work from executing tasks into deciding on them.</p>
+        </div>
+
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 3c4 5 6 10 6 15s-2 10-6 13c-4-3-6-8-6-13s2-10 6-15Z" stroke="var(--dawn)" stroke-width="1.4"/>
+            <circle cx="17" cy="15" r="2.4" stroke="var(--dawn)" stroke-width="1.2"/>
+            <path d="M9 27c2 2 5 3 8 3s6-1 8-3" stroke="var(--dawn)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <h3>Humanity goes planetary</h3>
+          <p>Permanent lunar outposts and crewed trips to Mars stretch the idea of "home" beyond a single set of borders.</p>
+        </div>
+
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 27V17l11-9 11 9v10" stroke="var(--dawn)" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M13 27v-8h8v8" stroke="var(--dawn)" stroke-width="1.2"/>
+            <path d="M4 27h26" stroke="var(--dawn)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <h3>Cities that breathe like forests</h3>
+          <p>Buildings that generate their own power and clean their own air, and transit good enough that owning a car becomes a choice, not a requirement.</p>
+        </div>
+
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 5c2.5 3 6 5 11 5-1 12-6 16-11 19-5-3-10-7-11-19 5 0 8.5-2 11-5Z" stroke="var(--dawn)" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M13 17l3 3 5-6" stroke="var(--dawn)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Longer lives, measured rather than guessed</h3>
+          <p>Medicine that predicts illness before symptoms appear, turning treatment into prevention — and healthy years added to a life become an everyday goal, not a distant hope.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline-section">
+    <div class="wrap">
+      <div class="kicker">A hopeful timeline</div>
+      <h2>What the road there might look like</h2>
+      <p class="lede">Estimates, not prophecies — grounded in research already underway today in energy, space, and medicine.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2030</div>
+          <p>Renewable energy becomes the cheapest option on most grids worldwide, and intelligent assistants manage the schedules of entire teams, not just individuals.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2040</div>
+          <p>The first permanent research outpost on the Moon runs on a rotating crew, and annual blood tests flag disease markers before any symptom appears.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2060</div>
+          <p>New cities are designed from day one without a need for private cars, and power grids trade energy across continents the way data is traded today.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2100</div>
+          <p>A generation is born with a grandparent who once lived on another planet for a time, and the question "where were you born?" means something wider than it used to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <div class="wrap">
+      <blockquote>
+        "We don't make the future by predicting it, but by deciding which parts of it we want to speed up, and which we want to slow down."
+      </blockquote>
+      <cite>From the reflections behind this page</cite>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <div class="kicker">Stay with it</div>
+      <h2>Tomorrow gets written in small installments</h2>
+      <p class="lede">Leave your email and get one idea a month about one of these directions — no daily pings, no noise.</p>
+
+      <form class="cta-row" onsubmit="event.preventDefault(); this.querySelector('.cta-btn').textContent='Done, thank you';">
+        <input class="cta-input" type="email" placeholder="Your email" required>
+        <button class="cta-btn" type="submit">Send me this month's idea</button>
+      </form>
+      <div class="cta-note">Demo form — no email is actually sent.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Built as a visual reflection on tomorrow, not a scientific report.</footer>
+
+<script>
+  // ambient starfield
+  const starsContainer = document.getElementById('stars');
+  const starCount = window.innerWidth < 640 ? 45 : 90;
+  for (let i = 0; i < starCount; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 1.8 + 0.6;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    s.style.animationDuration = (4 + Math.random() * 4) + 's';
+    starsContainer.appendChild(s);
+  }
+
+  // orbit dot drifting along the hero cue, once settled
+  const dot = document.getElementById('orbit-dot');
+  if (dot && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let x = 4;
+    const animateDot = () => {
+      x += 0.4;
+      if (x > 180) x = 4;
+      dot.setAttribute('cx', x);
+      requestAnimationFrame(animateDot);
+    };
+    setTimeout(() => requestAnimationFrame(animateDot), 1400);
+  }
+</script>
+
+</body>
+</html>
