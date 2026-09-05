@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomorrow | A Look Toward the Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: #0D1321;
+    --twilight: #1D2D50;
+    --dawn: #E8A33D;
+    --violet: #6B4E71;
+    --paper: #F4F1EA;
+    --line: rgba(244,241,234,0.14);
+    --max-w: 780px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--night);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .wrap{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  a{ color: inherit; }
+
+  /* ---------- ambient starfield ---------- */
+  #stars{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star{
+    position: absolute;
+    background: var(--paper);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%, 100%{ opacity: 0.15; }
+    50%{ opacity: 0.75; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .star{ animation: none; opacity: 0.35; }
+  }
+
+  main{ position: relative; z-index: 1; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 0 80px;
+    position: relative;
+  }
+
+  .hero .eyebrow{
+    color: var(--dawn);
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: rise 0.9s 0.1s ease-out forwards;
+  }
+
+  .hero h1{
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    color: var(--paper);
+    max-width: 16ch;
+    opacity: 0;
+    animation: rise 0.9s 0.3s ease-out forwards;
+  }
+
+  .hero p{
+    max-width: 58ch;
+    margin-top: 26px;
+    font-size: 1.15rem;
+    color: rgba(244,241,234,0.8);
+    opacity: 0;
+    animation: rise 0.9s 0.55s ease-out forwards;
+  }
+
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(16px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .orbit-cue{
+    margin-top: 64px;
+    width: 220px;
+    height: 46px;
+    opacity: 0;
+    animation: rise 0.9s 0.8s ease-out forwards;
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    padding: 100px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .kicker{
+    font-size: 1rem;
+    color: var(--dawn);
+    margin-bottom: 14px;
+  }
+
+  section > .wrap > h2{
+    font-size: clamp(1.7rem, 3.8vw, 2.4rem);
+    max-width: 20ch;
+  }
+
+  .lede{
+    max-width: 62ch;
+    margin-top: 20px;
+    color: rgba(244,241,234,0.78);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- pillars ---------- */
+  .pillars{
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .pillar{
+    background: var(--night);
+    padding: 36px 32px;
+  }
+  .pillar .glyph{
+    width: 34px;
+    height: 34px;
+    margin-bottom: 22px;
+  }
+  .pillar h3{
+    font-size: 1.25rem;
+    color: var(--paper);
+  }
+  .pillar p{
+    margin-top: 12px;
+    font-size: 0.98rem;
+    color: rgba(244,241,234,0.72);
+  }
+
+  @media (max-width: 640px){
+    .pillars{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- timeline ---------- */
+  .timeline-section{ background: var(--twilight); }
+
+  .timeline{
+    margin-top: 60px;
+    position: relative;
+    padding-left: 34px;
+  }
+  .timeline::before{
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item{
+    position: relative;
+    padding-bottom: 52px;
+  }
+  .tl-item:last-child{ padding-bottom: 0; }
+  .tl-item::before{
+    content: "";
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--twilight);
+    border: 2px solid var(--dawn);
+  }
+  .tl-year{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--dawn);
+    font-size: 1.5rem;
+  }
+  .tl-item p{
+    margin-top: 10px;
+    color: rgba(244,241,234,0.82);
+    max-width: 56ch;
+  }
+
+  /* ---------- manifesto ---------- */
+  .manifesto{
+    text-align: center;
+  }
+  .manifesto blockquote{
+    margin: 0 auto;
+    max-width: 42ch;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.4rem, 3.4vw, 2rem);
+    line-height: 1.6;
+    color: var(--paper);
+  }
+  .manifesto cite{
+    display: block;
+    margin-top: 24px;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: rgba(244,241,234,0.6);
+  }
+
+  /* ---------- closing ---------- */
+  .closing{
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .closing h2{
+    max-width: none;
+    margin: 0 auto;
+  }
+  .closing .lede{ margin-inline: auto; }
+
+  .cta-row{
+    margin-top: 40px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-input{
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--paper);
+    padding: 14px 20px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    min-width: 260px;
+  }
+  .cta-input::placeholder{ color: rgba(244,241,234,0.45); }
+  .cta-input:focus{
+    outline: none;
+    border-color: var(--dawn);
+  }
+  .cta-btn{
+    background: var(--dawn);
+    color: var(--night);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .cta-btn:hover{ transform: translateY(-2px); }
+  .cta-btn:focus-visible, .cta-input:focus-visible{
+    outline: 2px solid var(--dawn);
+    outline-offset: 2px;
+  }
+
+  .cta-note{
+    margin-top: 18px;
+    font-size: 0.85rem;
+    color: rgba(244,241,234,0.45);
+  }
+
+  footer{
+    text-align: center;
+    padding: 40px 0 60px;
+    font-size: 0.85rem;
+    color: rgba(244,241,234,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">A quiet look ahead</div>
+      <h1>The future isn't a place we arrive at. It's a habit we build today.</h1>
+      <p>Every small decision, every idea tested, every question asked in a lab or a bedroom — these are the raw materials of a world not yet built. This page is about that world, and the hands shaping it right now.</p>
+
+      <svg class="orbit-cue" viewBox="0 0 220 46" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+        <path d="M4 23 H180" stroke="var(--line)" stroke-width="1"/>
+        <circle id="orbit-dot" cx="4" cy="23" r="4" fill="var(--dawn)"/>
+        <path d="M170 15 L184 23 L170 31" stroke="rgba(244,241,234,0.5)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="pillars">
+    <div class="wrap">
+      <div class="kicker">Emerging shapes</div>
+      <h2>Four shifts likely to redraw daily life</h2>
+      <p class="lede">No one has a crystal ball, but a few transformations are already clear enough to sketch in broad strokes.</p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="17" cy="17" r="6" stroke="var(--dawn)" stroke-width="1.4"/>
+            <path d="M17 2v6M17 26v6M2 17h6M26 17h6M6.5 6.5l4.2 4.2M23.3 23.3l4.2 4.2M27.5 6.5l-4.2 4.2M10.7 23.3l-4.2 4.2" stroke="var(--dawn)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <h3>Intelligence that thinks alongside us</h3>
+          <p>Tools that understand context and propose, rather than dictate — turning our work from executing tasks into deciding on them.</p>
+        </div>
+
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 3c4 5 6 10 6 15s-2 10-6 13c-4-3-6-8-6-13s2-10 6-15Z" stroke="var(--dawn)" stroke-width="1.4"/>
+            <circle cx="17" cy="15" r="2.4" stroke="var(--dawn)" stroke-width="1.2"/>
+            <path d="M9 27c2 2 5 3 8 3s6-1 8-3" stroke="var(--dawn)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <h3>Humanity goes planetary</h3>
+          <p>Permanent lunar outposts and crewed trips to Mars stretch the idea of "home" beyond a single set of borders.</p>
+        </div>
+
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 27V17l11-9 11 9v10" stroke="var(--dawn)" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M13 27v-8h8v8" stroke="var(--dawn)" stroke-width="1.2"/>
+            <path d="M4 27h26" stroke="var(--dawn)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <h3>Cities that breathe like forests</h3>
+          <p>Buildings that generate their own power and clean their own air, and transit good enough that owning a car becomes a choice, not a requirement.</p>
+        </div>
+
+        <div class="pillar">
+          <svg class="glyph" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 5c2.5 3 6 5 11 5-1 12-6 16-11 19-5-3-10-7-11-19 5 0 8.5-2 11-5Z" stroke="var(--dawn)" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M13 17l3 3 5-6" stroke="var(--dawn)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Longer lives, measured rather than guessed</h3>
+          <p>Medicine that predicts illness before symptoms appear, turning treatment into prevention — and healthy years added to a life become an everyday goal, not a distant hope.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline-section">
+    <div class="wrap">
+      <div class="kicker">A hopeful timeline</div>
+      <h2>What the road there might look like</h2>
+      <p class="lede">Estimates, not prophecies — grounded in research already underway today in energy, space, and medicine.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2030</div>
+          <p>Renewable energy becomes the cheapest option on most grids worldwide, and intelligent assistants manage the schedules of entire teams, not just individuals.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2040</div>
+          <p>The first permanent research outpost on the Moon runs on a rotating crew, and annual blood tests flag disease markers before any symptom appears.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2060</div>
+          <p>New cities are designed from day one without a need for private cars, and power grids trade energy across continents the way data is traded today.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2100</div>
+          <p>A generation is born with a grandparent who once lived on another planet for a time, and the question "where were you born?" means something wider than it used to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <div class="wrap">
+      <blockquote>
+        "We don't make the future by predicting it, but by deciding which parts of it we want to speed up, and which we want to slow down."
+      </blockquote>
+      <cite>From the reflections behind this page</cite>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <div class="kicker">Stay with it</div>
+      <h2>Tomorrow gets written in small installments</h2>
+      <p class="lede">Leave your email and get one idea a month about one of these directions — no daily pings, no noise.</p>
+
+      <form class="cta-row" onsubmit="event.preventDefault(); this.querySelector('.cta-btn').textContent='Done, thank you';">
+        <input class="cta-input" type="email" placeholder="Your email" required>
+        <button class="cta-btn" type="submit">Send me this month's idea</button>
+      </form>
+      <div class="cta-note">Demo form — no email is actually sent.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Built as a visual reflection on tomorrow, not a scientific report.</footer>
+
+<script>
+  // ambient starfield
+  const starsContainer = document.getElementById('stars');
+  const starCount = window.innerWidth < 640 ? 45 : 90;
+  for (let i = 0; i < starCount; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 1.8 + 0.6;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    s.style.animationDuration = (4 + Math.random() * 4) + 's';
+    starsContainer.appendChild(s);
+  }
+
+  // orbit dot drifting along the hero cue, once settled
+  const dot = document.getElementById('orbit-dot');
+  if (dot && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let x = 4;
+    const animateDot = () => {
+      x += 0.4;
+      if (x > 180) x = 4;
+      dot.setAttribute('cx', x);
+      requestAnimationFrame(animateDot);
+    };
+    setTimeout(() => requestAnimationFrame(animateDot), 1400);
+  }
+</script>
+
+</body>
+</html>
